@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLDAL
 {
-    class BLDAL_NhomQuyen : DataHelper<NhomQuyen>
+    public class BLDAL_NhomQuyen : DataHelper<NhomQuyen>
     {
         public override int Delete(string pID)
         {
@@ -32,7 +32,7 @@ namespace BLDAL
         {
             try
             {
-                entity.MaNhom = GenerateID();
+                if(string.IsNullOrEmpty(entity.MaNhom)) entity.MaNhom = GenerateID();
                 context.NhomQuyens.InsertOnSubmit(entity);
                 context.SubmitChanges();
             }
@@ -56,7 +56,7 @@ namespace BLDAL
             return true;
         }
 
-        protected override string GenerateID()
+        public override string GenerateID()
         {
             string type = "NQ";
             int max = -1;
@@ -77,7 +77,7 @@ namespace BLDAL
 
         public List<CTNhomQuyen> GetDataCTNhomQuyen(string pMaNhom)
         {
-            return context.CTNhomQuyens.Select(ct => ct).Where(ct=>ct.MaNhom==pID).ToList();
+            return context.CTNhomQuyens.Select(ct => ct).Where(ct=>ct.MaNhom==pMaNhom).ToList();
         }
 
         public bool DeleteCTNhomQuyen(string pMaNhom, string pMaQuyen)

@@ -13,13 +13,12 @@ namespace BLDAL
             return context.TaiKhoans.Select(tk => tk).ToList();
         }
 
-        protected override string GenerateID()
+        public override string GenerateID()
         {
-            string type = "KH";
+            string type = "TK";
             int max = -1;
             foreach (TaiKhoan taiKhoan in context.TaiKhoans.Select(tk => tk))
             {
-                if (taiKhoan.MaTK.Substring(0, 2) != "KH") continue;
                 int temp = int.Parse(taiKhoan.MaTK.Substring(2));
                 if (temp > max) max = temp;
             }
@@ -36,6 +35,7 @@ namespace BLDAL
         {
             try
             {
+                if(string.IsNullOrEmpty(pTaiKhoan.MaTK)) pTaiKhoan.MaTK = GenerateID();
                 context.TaiKhoans.InsertOnSubmit(pTaiKhoan);
                 context.SubmitChanges();
             }
@@ -46,7 +46,6 @@ namespace BLDAL
         }
         public override bool Update(TaiKhoan pTaiKhoan)
         {
-            NhanVienHoTro nv = new NhanVienHoTro();
             try
             {
                 TaiKhoan temp = context.TaiKhoans.FirstOrDefault(tk => tk.MaTK == pTaiKhoan.MaTK);
@@ -78,6 +77,20 @@ namespace BLDAL
                 return DEPENDED;
             }
             return SUCCESS;
+        }
+
+        public bool IsUsernameValid(string pUsername)
+        {
+            return context.TaiKhoans.FirstOrDefault(tk => tk.Username == pUsername) ==null;
+        }
+        public bool IsUserValid(string pUsername, string pPassword)
+        {
+            string hashedPassword = ComputeHash(pPassword);
+            return context.TaiKhoans.FirstOrDefault(tk => tk.Username == pUsername && tk.Pass == hashedPassword) != null;
+        }
+        public TaiKhoan GetTaiKhoan(string pUsername)
+        {
+            return context.TaiKhoans.FirstOrDefault(tk => tk.Username == pUsername);
         }
     }
 }

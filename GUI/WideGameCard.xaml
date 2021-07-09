@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="GUI.WideGameCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="900">
+    <Grid>
+    <Button Width="880" HorizontalContentAlignment="Left" Margin="10,10,10,10" Background="#bdd0ff" Name="btn">
+        <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Image  Height="120" Width="200" Name="imgGame" Margin="0,3"/>
+                    <StackPanel>
+                        <TextBlock TextWrapping="WrapWithOverflow" Height="65" Padding="20,20,20,20" FontSize="16" Name="tbTitle" Text="Place holder"/>
+                        <TextBlock Height="65" Padding="20,20,20,20" FontSize="20" Foreground="Red" Name="tbPrice" Text="Place holder"/>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Name="txtID"
+                       Visibility="Hidden"/>
+        </Grid>
+    </Button>
+        <Button Name="btnXoa"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="80"
+                    Margin="300,92,0,0"
+                    Visibility="Hidden">
+                <Grid>
+                    <TextBlock Text="Xóa"
+                               FontSize="20" 
+                               TextAlignment="Center"
+                               Foreground="Red"/>
+                    <TextBlock Name="txtXoaID"
+                               Visibility="Hidden"/>
+                </Grid>
+            </Button>
+    </Grid>
+</UserControl>

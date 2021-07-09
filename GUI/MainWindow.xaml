@@ -1,0 +1,63 @@
+﻿<Window x:Class="GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="Cua Hang Game" Height="650" Width="1300"
+        ResizeMode="NoResize">
+
+    <Grid Background="#493975">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ScrollViewer 
+            VerticalAlignment="Stretch" 
+            Grid.Row="1" 
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel 
+                VerticalAlignment="Stretch" 
+                Name="SidePanel"/>
+        </ScrollViewer>
+        <ScrollViewer 
+            VerticalAlignment="Stretch" 
+            HorizontalAlignment="Stretch"  
+            Grid.Row="1" Grid.Column="1" 
+            Name="svMainContent" 
+            VerticalScrollBarVisibility="Auto"
+            Background="White"/>
+        <TextBlock Text="Cửa Hàng Game" 
+                   FontSize="20"
+                   HorizontalAlignment="Stretch"
+                   Background="Black"
+                   Padding="20,10,0,0"
+                   Foreground="White"
+                   VerticalAlignment="Stretch"/>
+        <TextBlock Text="Xin chào" 
+                   Name="txtGreeting"
+                   FontSize="15"
+                   Grid.Column="1"
+                   Background="#0a007d"
+                   Foreground="White"
+                   VerticalAlignment="Stretch"
+                   TextAlignment="Center"
+                   Padding="0,15,0,0"
+                   HorizontalAlignment="Stretch"
+                   />
+        <Button x:Name="btnDoiMatKhau"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                FontSize="20"
+                Margin="0,0,15,0"
+                Content="Đổi mật khẩu" Click="btnDoiMatKhau_Click"
+                />
+
+    </Grid>
+</Window>

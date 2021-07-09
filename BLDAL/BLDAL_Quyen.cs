@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLDAL
 {
-    class BLDAL_Quyen : DataHelper<Quyen>
+    public class BLDAL_Quyen : DataHelper<Quyen>
     {
         public override List<Quyen> GetData()
         {

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace BLDAL
 {
-    class BLDAL_KhachHang : BLDAL_TaiKhoan
+    public class BLDAL_KhachHang : BLDAL_TaiKhoan
     {
+        //nhom khach hang
+        private const string NHOM = "NQ00000002";
         public override int Delete(string pMaTK)
         {
             return base.Delete(pMaTK);
@@ -15,12 +17,13 @@ namespace BLDAL
 
         public override List<TaiKhoan> GetData()
         {
-            return base.GetData();
+            return context.TaiKhoans.Select(tk=>tk).Where(tk=>tk.MaNhom==NHOM).ToList();
         }
 
         public override bool Insert(TaiKhoan pTaiKhoan)
         {
-            pTaiKhoan.MaTK = GenerateID();
+            pTaiKhoan.MaNhom = NHOM;
+            if(string.IsNullOrEmpty(pTaiKhoan.MaTK)) pTaiKhoan.MaTK = GenerateID();
             return base.Insert(pTaiKhoan);
         }
 
@@ -29,9 +32,14 @@ namespace BLDAL
             return base.Update(pTaiKhoan);
         }
 
-        protected override string GenerateID()
+        public override string GenerateID()
         {
             return base.GenerateID();
+        }
+
+        public TaiKhoan GetKhachHang(string pMaTK)
+        {
+            return context.TaiKhoans.FirstOrDefault(tk => tk.MaTK == pMaTK);
         }
     }
 }

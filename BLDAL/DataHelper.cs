@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace BLDAL
 {
@@ -12,7 +11,7 @@ namespace BLDAL
         public const int NONEXISTENT = 0;
         public const int SUCCESS = 1;
         protected static CHGameDataClassesDataContext context = new CHGameDataClassesDataContext();
-        protected virtual string GenerateID() { return null; }
+        public virtual string GenerateID() { return null; }
         public virtual List<T> GetData()
         {
             return null;
@@ -32,6 +31,17 @@ namespace BLDAL
         public virtual int Delete(String pID)
         {
             return 1;
+        }
+        public string ComputeHash(string input)
+        {
+            using (SHA256 hash = SHA256.Create())
+            {
+                byte[] rawOutput = hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < rawOutput.Length; i++)
+                    builder.Append(rawOutput[i].ToString("x2"));
+                return builder.ToString();
+            }
         }
     }
 }

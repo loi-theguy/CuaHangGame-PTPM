@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CHGame" Class="CHGameDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=PC\SQLEXPRESS;Initial Catalog=CHGame;Integrated Security=True" SettingsObjectName="BLDAL.Properties.Settings" SettingsPropertyName="CHGameConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.CTGioLam" Member="CTGioLams">
-    <Type Name="CTGioLam">
-      <Column Name="MaTK" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ThoiGianBatDau" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ThoiGianKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="SoGio" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Association Name="NhanVienHoTro_CTGioLam" Member="NhanVienHoTro" ThisKey="MaTK" OtherKey="MaTK" Type="NhanVienHoTro" IsForeignKey="true" />
+  <Table Name="dbo.CTHoaDon" Member="CTHoaDons">
+    <Type Name="CTHoaDon">
+      <Column Name="MaHD" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MaGame" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Game_CTHoaDon" Member="Game" ThisKey="MaGame" OtherKey="MaGame" Type="Game" IsForeignKey="true" />
+      <Association Name="HoaDon_CTHoaDon" Member="HoaDon" ThisKey="MaHD" OtherKey="MaHD" Type="HoaDon" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.TheLoai" Member="TheLoais">
@@ -14,14 +13,6 @@
       <Column Name="MaTL" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TenTL" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Association Name="TheLoai_Game_TheLoai" Member="Game_TheLoais" ThisKey="MaTL" OtherKey="MaTL" Type="Game_TheLoai" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CTHoaDon" Member="CTHoaDons">
-    <Type Name="CTHoaDon">
-      <Column Name="MaHD" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="MaGame" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Game_CTHoaDon" Member="Game" ThisKey="MaGame" OtherKey="MaGame" Type="Game" IsForeignKey="true" />
-      <Association Name="HoaDon_CTHoaDon" Member="HoaDon" ThisKey="MaHD" OtherKey="MaHD" Type="HoaDon" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.CTNhomQuyen" Member="CTNhomQuyens">
@@ -38,7 +29,6 @@
       <Column Name="TenGame" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="MoTa" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="HinhDaiDien" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="Trailer" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
       <Column Name="MaNSX" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="DonGia" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Association Name="Game_CTHoaDon" Member="CTHoaDons" ThisKey="MaGame" OtherKey="MaGame" Type="CTHoaDon" />
@@ -61,14 +51,6 @@
       <Column Name="NgayLap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Association Name="HoaDon_CTHoaDon" Member="CTHoaDons" ThisKey="MaHD" OtherKey="MaHD" Type="CTHoaDon" />
       <Association Name="TaiKhoan_HoaDon" Member="TaiKhoan" ThisKey="MaTK" OtherKey="MaTK" Type="TaiKhoan" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.NhanVienHoTro" Member="NhanVienHoTros">
-    <Type Name="NhanVienHoTro">
-      <Column Name="MaTK" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="DonGiaGio" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Association Name="NhanVienHoTro_CTGioLam" Member="CTGioLams" ThisKey="MaTK" OtherKey="MaTK" Type="CTGioLam" />
-      <Association Name="TaiKhoan_NhanVienHoTro" Member="TaiKhoan" ThisKey="MaTK" OtherKey="MaTK" Type="TaiKhoan" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.NhanVienQuanLy" Member="NhanVienQuanLies">
@@ -115,9 +97,48 @@
       <Column Name="Pass" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
       <Column Name="MaNhom" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Association Name="TaiKhoan_HoaDon" Member="HoaDons" ThisKey="MaTK" OtherKey="MaTK" Type="HoaDon" />
-      <Association Name="TaiKhoan_NhanVienHoTro" Member="NhanVienHoTro" ThisKey="MaTK" OtherKey="MaTK" Type="NhanVienHoTro" Cardinality="One" />
       <Association Name="TaiKhoan_NhanVienQuanLy" Member="NhanVienQuanLy" ThisKey="MaTK" OtherKey="MaTK" Type="NhanVienQuanLy" Cardinality="One" />
       <Association Name="NhomQuyen_TaiKhoan" Member="NhomQuyen" ThisKey="MaNhom" OtherKey="MaNhom" Type="NhomQuyen" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_NVQL" Member="View_NVQLs">
+    <Type Name="View_NVQL">
+      <Column Name="MaTK" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="SoDienThoai" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="MaNhom" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="LuongCoBan" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="PhuCapTrachNhiem" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_CTHD" Member="View_CTHDs">
+    <Type Name="View_CTHD">
+      <Column Name="MaHD" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MaGame" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TenGame" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DonGia" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_HoaDon" Member="View_HoaDons">
+    <Type Name="View_HoaDon">
+      <Column Name="MaHD" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MaTK" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="NgayLap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_Game" Member="View_Games">
+    <Type Name="View_Game">
+      <Column Name="MaGame" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TenGame" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="MoTa" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="HinhDaiDien" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="MaNSX" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="TenNSX" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DonGia" Type="System.Double" DbType="Float" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

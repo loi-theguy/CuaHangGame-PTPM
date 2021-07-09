@@ -1,0 +1,27 @@
+﻿<Window x:Class="GUI.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="RegisterWindow" Height="331" Width="380">
+    <Grid Height="302" VerticalAlignment="Top" Margin="0,0,2,-2">
+        <TextBox TabIndex="1" Name="txtHoTen" HorizontalAlignment="Left" Height="23" Margin="167,31,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="170"/>
+        <TextBox TabIndex="3" Name="txtSoDienThoai" HorizontalAlignment="Left" Height="23" Margin="167,87,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="170"/>
+        <TextBox TabIndex="4" Name="txtEmail" HorizontalAlignment="Left" Height="23" Margin="167,115,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="170"/>
+        <TextBox TabIndex="5" Name="txtUsername" HorizontalAlignment="Left" Height="23" Margin="167,143,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="170"/>
+        <PasswordBox TabIndex="6" Name="txtMK" HorizontalAlignment="Left" Margin="167,171,0,0" Height="23" Width="170"  VerticalAlignment="Top"/>
+        <PasswordBox PasswordChanged="txtXacNhanMK_PasswordChanged"  TabIndex="7" x:Name="txtXacNhanMK" HorizontalAlignment="Left" Margin="167,199,0,0" Height="23" Width="170"  VerticalAlignment="Top"/>
+        <DatePicker TabIndex="2" Name="txtNgaySinh" HorizontalAlignment="Left" Width="170" Height="23" Margin="167,59,33,220"/>
+        <Label Content="Ngày sinh" HorizontalAlignment="Left" Margin="30,59,0,0" VerticalAlignment="Top"/>
+        <Label Content="Số điện thoại" HorizontalAlignment="Left" Margin="30,87,0,0" VerticalAlignment="Top"/>
+        <Label Content="Email" HorizontalAlignment="Left" Margin="30,115,0,0" VerticalAlignment="Top"/>
+        <Label Content="Tên tài khoản" HorizontalAlignment="Left" Margin="30,142,0,0" VerticalAlignment="Top"/>
+        <Label Content="Mật khẩu" HorizontalAlignment="Left" Margin="30,171,0,0" VerticalAlignment="Top"/>
+        <Label Content="Xác nhận mật khẩu" HorizontalAlignment="Left" Margin="30,199,0,0" VerticalAlignment="Top"/>
+        <Label Content="Họ tên" HorizontalAlignment="Left" Margin="30,31,0,0" VerticalAlignment="Top"/>
+        <Button TabIndex="8" Name="btnConfirmRegister" Content="Đăng ký" HorizontalAlignment="Center" Margin="0,260,0,0" VerticalAlignment="Top" Width="75" Click="btnConfirmRegister_Click"/>
+        <Label Name="txtError" Foreground="Red" HorizontalAlignment="Left" Margin="167,229,0,0" VerticalAlignment="Top" Width="170"/>
+    </Grid>
+</Window>

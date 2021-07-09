@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLDAL
 {
-    class BLDAL_TheLoai : DataHelper<TheLoai>
+    public class BLDAL_TheLoai : DataHelper<TheLoai>
     {
         public override int Delete(string pID)
         {
@@ -32,7 +32,7 @@ namespace BLDAL
         {
             try
             {
-                entity.MaTL = GenerateID();
+                if(string.IsNullOrEmpty(entity.MaTL)) entity.MaTL = GenerateID();
                 context.TheLoais.InsertOnSubmit(entity);
                 context.SubmitChanges();
             }
@@ -56,7 +56,7 @@ namespace BLDAL
             return true;
         }
 
-        protected override string GenerateID()
+        public override string GenerateID()
         {
             string type = "TL";
             int max = -1;
@@ -72,6 +72,44 @@ namespace BLDAL
                 id = "0" + id;
             }
             return type + id;
+        }
+
+        public List<Game_TheLoai> GetDataGame_TheLoais(string pMaGame)
+        {
+            return context.Game_TheLoais.Select(tl => tl).Where(tl => tl.MaGame == pMaGame).ToList();
+        }
+
+        public bool InsertGame_TheLoai(string pMaGame, string pMaTL)
+        {
+            try
+            {
+                Game_TheLoai gtl = new Game_TheLoai();
+                gtl.MaGame = pMaGame;
+                gtl.MaTL = pMaTL;
+                context.Game_TheLoais.InsertOnSubmit(gtl);
+                context.SubmitChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool DeleteGame_TheLoai(string pMaGame, string pMaTL)
+        {
+            try
+            {
+                Game_TheLoai gtl = context.Game_TheLoais.FirstOrDefault(tl => tl.MaGame == pMaGame && tl.MaTL == pMaTL);
+                context.Game_TheLoais.DeleteOnSubmit(gtl);
+                return true;
+            }
+            catch {
+                return false;
+            }
+        }
+        public TheLoai GetTheLoai(string pMaTL)
+        {
+            return context.TheLoais.FirstOrDefault(tl => tl.MaTL == pMaTL);
         }
     }
 }

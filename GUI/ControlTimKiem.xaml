@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="GUI.ControlTimKiem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label 
+            Content="Nhập từ khóa tìm kiếm" 
+            HorizontalAlignment="Left" 
+            FontSize="20"
+            Margin="40,0,0,0" 
+            VerticalAlignment="Center"/>
+        <TextBox HorizontalAlignment="Left"
+                 VerticalAlignment="Center"
+                 Width="300"
+                 FontSize="20"
+                 Name="txtTuKhoa"
+                 Margin="270,0,0,0"/>
+        <Button Name="btnTimKiem"
+                Content="Tìm kiếm"
+                HorizontalAlignment="Left"
+                FontSize="20"
+                Margin="590,0,0,0"
+                VerticalAlignment="Center" Click="btnTimKiem_Click"/>
+        <StackPanel Name="spResultContent"
+                    Grid.Row="1"/>
+    </Grid>
+</UserControl>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLDAL
 {
-    class BLDAL_NhaSanXuat : DataHelper<NhaSanXuat>
+    public class BLDAL_NhaSanXuat : DataHelper<NhaSanXuat>
     {
         public override int Delete(string pID)
         {
@@ -32,7 +32,7 @@ namespace BLDAL
         {
             try
             {
-                entity.MaNSX = GenerateID();
+                if(string.IsNullOrEmpty(entity.MaNSX)) entity.MaNSX = GenerateID();
                 context.NhaSanXuats.InsertOnSubmit(entity);
                 context.SubmitChanges();
             }
@@ -59,7 +59,7 @@ namespace BLDAL
             return true;
         }
 
-        protected override string GenerateID()
+        public override string GenerateID()
         {
             string type = "NSX";
             int max = -1;
@@ -75,6 +75,10 @@ namespace BLDAL
                 id = "0" + id;
             }
             return type + id;
+        }
+        public NhaSanXuat GetNhaSanXuat(string pMaNSX)
+        {
+            return context.NhaSanXuats.FirstOrDefault(nsx => nsx.MaNSX == pMaNSX);
         }
     }
 }

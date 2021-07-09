@@ -45,7 +45,6 @@
     <Compile Include="BLDAL_Game.cs" />
     <Compile Include="BLDAL_HoaDon.cs" />
     <Compile Include="BLDAL_KhachHang.cs" />
-    <Compile Include="BLDAL_NhanVienHoTro.cs" />
     <Compile Include="BLDAL_NhanVienQuanLy.cs" />
     <Compile Include="BLDAL_NhaSanXuat.cs" />
     <Compile Include="BLDAL_NhomQuyen.cs" />

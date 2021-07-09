@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace BLDAL
 {
-    class BLDAL_Game:DataHelper<Game>
+    public class BLDAL_Game:DataHelper<Game>
     {
         public override List<Game> GetData()
         {
             return context.Games.Select(g => g).ToList();
         }
 
-        protected override string GenerateID()
+        public override string GenerateID()
         {
             string type= "GA";
             int max = -1;
@@ -36,7 +36,7 @@ namespace BLDAL
         {
             try
             {
-                pGame.MaGame = GenerateID();
+                if(string.IsNullOrEmpty(pGame.MaGame)) pGame.MaGame = GenerateID();
                 context.Games.InsertOnSubmit(pGame);
                 context.SubmitChanges();
             }
@@ -51,6 +51,11 @@ namespace BLDAL
         {
             try
             {
+                List<Game_TheLoai> gtls = GetDataGameTheLoai(pMaGame);
+                foreach (Game_TheLoai gtl in gtls)
+                {
+                    DeleteGameTheLoai(gtl.MaGame, gtl.MaTL);
+                }    
                 Game game = context.Games.FirstOrDefault(g => g.MaGame == pMaGame);
                 if (game == null) return NONEXISTENT;
                 context.Games.DeleteOnSubmit(game);
@@ -71,7 +76,6 @@ namespace BLDAL
                 game.TenGame = entity.TenGame;
                 game.MoTa = entity.MoTa;
                 game.HinhDaiDien = entity.HinhDaiDien;
-                game.Trailer = entity.Trailer;
                 game.MaNSX = entity.MaNSX;
                 context.SubmitChanges();
             }
@@ -110,6 +114,64 @@ namespace BLDAL
                 return false;
             }
             return true;
+        }
+
+        public Game GetGame(string pMaGame)
+        {
+            return context.Games.FirstOrDefault(g => g.MaGame == pMaGame);
+        }
+        public List<Game> GetDataGameDaMua(string pMaTK)
+        {
+            BLDAL_HoaDon hdHelper = new BLDAL_HoaDon();
+            List<HoaDon> hoaDons = hdHelper.GetData(pMaTK);
+            List<Game> games = new List<Game>();
+            foreach (HoaDon hd in hoaDons)
+            {
+                List<CTHoaDon> chiTiets=hdHelper.GetDataCTHoaDon(hd.MaHD);
+                foreach (CTHoaDon ct in chiTiets)
+                {
+                    games.Add(GetGame(ct.MaGame));
+                }
+            }
+            return games; 
+        }
+        public List<Game> Search(string pKeyWord)
+        {
+            return context
+                .Games
+                .Select(g => g)
+                .Where(g => g.TenGame.Contains(pKeyWord) || g.MoTa.Contains(pKeyWord))
+                .ToList();
+        }
+
+        public List<View_Game> GetView_Games()
+        {
+            return context.View_Games.ToList();
+        }
+
+        public List<TheLoai> GetTheLoais(string pMaGame)
+        {
+            BLDAL_TheLoai helper = new BLDAL_TheLoai();
+            List<TheLoai> result = new List<TheLoai>();
+            List<Game_TheLoai> list = context.Game_TheLoais.Where(gtl => gtl.MaGame == pMaGame).ToList();
+            foreach (Game_TheLoai gtl in list)
+                result.Add(helper.GetTheLoai(gtl.MaTL));
+            return result;
+        }
+
+        private bool IsContained(TheLoai tl, List<TheLoai> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+                if (list[i].MaTL == tl.MaTL) return true;
+            return false;
+        }
+        public List<TheLoai> GetTheLoaiBoSungs(string pMaGame)
+        {
+            List<TheLoai> list = GetTheLoais(pMaGame);
+            List<TheLoai> result = new List<TheLoai>();
+            foreach (TheLoai tl in context.TheLoais.ToList())
+                if (!IsContained(tl,list)) result.Add(tl);
+            return result;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLDAL
 {
-    class BLDAL_HoaDon : DataHelper<HoaDon>
+    public class BLDAL_HoaDon : DataHelper<HoaDon>
     {
         public override int Delete(string pID)
         {
@@ -32,7 +32,7 @@ namespace BLDAL
         {
             try
             {
-                entity.MaHD = GenerateID();
+                if(string.IsNullOrEmpty(entity.MaHD)) entity.MaHD = GenerateID();
                 context.HoaDons.InsertOnSubmit(entity);
                 context.SubmitChanges();
             }
@@ -56,7 +56,7 @@ namespace BLDAL
             return true;
         }
 
-        protected override string GenerateID()
+        public override string GenerateID()
         {
             string type = "HD";
             int max = -1;
@@ -100,6 +100,26 @@ namespace BLDAL
                 return false;
             }
             return true;
+        }
+
+        public List<HoaDon> GetData(string pMaTK)
+        {
+            return context.HoaDons.Select(hd => hd).Where(hd => hd.MaTK == pMaTK).ToList();
+        }
+
+        public bool IsExisted(string pMaHD, string pMaGame)
+        {
+            return context.CTHoaDons.FirstOrDefault(ct => ct.MaGame == pMaGame && ct.MaHD == pMaHD) != null;
+        }
+
+        public List<View_CTHD> GetView_CTHDs(string pMaHD)
+        {
+            return context.View_CTHDs.Select(ct => ct).Where(ct => ct.MaHD == pMaHD).ToList();
+        }
+
+        public List<View_HoaDon> GetView_HoaDons()
+        {
+            return context.View_HoaDons.Select(hd => hd).ToList();
         }
     }
 }
