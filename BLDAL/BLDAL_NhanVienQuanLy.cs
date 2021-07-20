@@ -76,5 +76,23 @@ namespace BLDAL
         {
             return context.View_NVQLs.Select(ql => ql).ToList();
         }
+
+        public List<NhanVienReportInfo> GetNhanVienReportInfos()
+        {
+            List<NhanVienReportInfo> result = new List<NhanVienReportInfo>();
+            List<NhanVienQuanLy> list = GetData();
+            for(int i=0;i<list.Count;i++)
+            {
+                NhanVienReportInfo info = new NhanVienReportInfo();
+                info.STT = (i + 1).ToString();
+                info.MaTK = list[i].MaTK;
+                info.HoTen = list[i].TaiKhoan.HoTen;
+                info.LuongCoBan = list[i].LuongCoBan.ToString();
+                info.PhuCapTrachNhiem = list[i].PhuCapTrachNhiem.ToString();
+                info.LuongThang = (list[i].LuongCoBan + list[i].PhuCapTrachNhiem).ToString();
+                result.Add(info);
+            }
+            return result;
+        }
     }
 }

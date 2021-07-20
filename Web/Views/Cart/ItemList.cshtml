@@ -1,0 +1,64 @@
+﻿@using BLDAL
+@{
+    ViewBag.Title = "ItemList";
+    Layout = "~/Views/Shared/_LayoutKhachHang.cshtml";
+}
+@model List<Game>
+<div class="container">
+    <div class="row">
+        <h1>Giỏ hàng</h1>
+    </div>
+    <div class="row">
+        @if (Model != null && Model.Count != 0)
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>
+                            Game
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Game game in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="card" style="margin:10px; width:200px;">
+                                    <a href="/Home/ChiTiet/@game.MaGame"><img src="/Content/Images/@game.HinhDaiDien" class="card-img-top" alt="..."></a>
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title" style="height:80px;">@game.TenGame</h5>
+                                        <h3 class="card-text text-danger">@game.DonGia</h3>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" href="@Url.Action("DeleteItem", "Cart", new { @id = game.MaGame })">Xóa</a>
+                            </td>
+                        </tr>
+                    }
+                    @if (Session["kh"] == null)
+                    {
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                <span class="text-danger">Vui lòng đăng nhập trước khi thanh toán</span>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <a class="btn btn-success" href="@Url.Action("Purchase", "Cart")">Thanh toán</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table> }
+        else
+        {
+            <h3>Bạn chưa chọn game nào vào giỏ hàng</h3>
+        }
+    </div>
+
+</div>
+

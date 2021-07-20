@@ -53,12 +53,13 @@ namespace GUI
         private void dgKH_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             if (dgKH.SelectedItems.Count == 0) return;
-            TaiKhoan tk = (TaiKhoan)dgKH.Items[0];
+            TaiKhoan tk = (TaiKhoan)dgKH.SelectedItems[0];
             txtHoTen.Text = tk.HoTen;
             txtEmail.Text = tk.Email;
             txtSoDienThoai.Text = tk.SoDienThoai;
             txtNgaySinh.SelectedDate = tk.NgaySinh;
             txtUsername.Text = tk.Username;
+            //UpdateLayout();
         }
 
         private bool HasSelected()

@@ -1,0 +1,31 @@
+﻿@using BLDAL
+@model List<Game>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutKhachHang.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <h1>Trang chủ</h1>
+    </div>
+    <div class="row">
+        @foreach (Game game in Model)
+        {
+            <div class="col-4">
+                <div class="card" style="margin:10px;">
+                    <a href="/Home/ChiTiet/@game.MaGame">
+                        <img src="/Content/Images/@game.HinhDaiDien" class="card-img-top" alt="...">
+                    </a>
+                    <div class="card-body text-center">
+                        <h5 class="card-title" style="height:80px;">@game.TenGame</h5>
+                        <h3 class="card-text text-danger">@game.DonGia</h3>
+                        <a href="@Url.Action("AddItem","Cart",new { @id = game.MaGame })" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+

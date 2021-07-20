@@ -121,5 +121,39 @@ namespace BLDAL
         {
             return context.View_HoaDons.Select(hd => hd).ToList();
         }
+
+        private bool AreSameDates(DateTime date1, DateTime date2)
+        {
+            return date1.Year == date2.Year && date1.Month == date2.Month && date1.Day == date2.Day;
+        }
+        public double GetDateRevenue(DateTime date)
+        {
+            List<HoaDon> hoaDons = context.HoaDons.ToList();
+            List<HoaDon> hds = new List<HoaDon>();
+            double sum = 0;
+            foreach (HoaDon hd in hoaDons)
+                if (AreSameDates(date, (DateTime)hd.NgayLap))
+                    hds.Add(hd);
+            BLDAL_Game gameHelper = new BLDAL_Game();
+            foreach (HoaDon hd in hds)
+            {
+                List<CTHoaDon> cts = GetDataCTHoaDon(hd.MaHD);
+                foreach (CTHoaDon ct in cts)
+                    sum +=(double) gameHelper.GetGame(ct.MaGame).DonGia;
+            }
+            return sum;
+        }
+
+        public List<TrainData> GetTrainDatas(DateTime start, DateTime end)
+        {
+            List<TrainData> result = new List<TrainData>();
+            for (DateTime day = start; DateTime.Compare(day, end) <= 0; day=day.AddDays(1))
+            {
+                DateTime d = new DateTime(day.Year, day.Month, day.Day);
+                double revenue = GetDateRevenue(day);
+                result.Add(new TrainData() { Date =d, Revenue=revenue});
+            }
+            return result;
+        }
     }
 }

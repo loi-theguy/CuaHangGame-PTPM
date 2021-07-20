@@ -39,7 +39,7 @@ namespace BLDAL
                 context.TaiKhoans.InsertOnSubmit(pTaiKhoan);
                 context.SubmitChanges();
             }
-            catch {
+            catch (Exception e) {
                 return false;
             }
             return true;

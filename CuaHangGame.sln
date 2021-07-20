@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLDAL", "BLDAL\BLDAL.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{B959B69B-D26B-41A6-831C-09D1DA933547}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordExcelExport", "WordExcelExport\WordExcelExport.csproj", "{EBC81CBC-6139-4C48-B9BD-5D6BABF106E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{06A4B999-9102-4EE1-B2E7-6F7F80259EFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{B959B69B-D26B-41A6-831C-09D1DA933547}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B959B69B-D26B-41A6-831C-09D1DA933547}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B959B69B-D26B-41A6-831C-09D1DA933547}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBC81CBC-6139-4C48-B9BD-5D6BABF106E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBC81CBC-6139-4C48-B9BD-5D6BABF106E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBC81CBC-6139-4C48-B9BD-5D6BABF106E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBC81CBC-6139-4C48-B9BD-5D6BABF106E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06A4B999-9102-4EE1-B2E7-6F7F80259EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A4B999-9102-4EE1-B2E7-6F7F80259EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06A4B999-9102-4EE1-B2E7-6F7F80259EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06A4B999-9102-4EE1-B2E7-6F7F80259EFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

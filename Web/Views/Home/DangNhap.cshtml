@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "DangNhap";
+    Layout = "~/Views/Shared/_LayoutKhachHang.cshtml";
+}
+@model string 
+<div class="container mt-5">
+    <form action="/Home/DangNhap" method="post">
+        <table>
+            <tr>
+                <td>Tên đăng nhập</td>
+                <td>
+                    <input class="form-control"  type="text" name="username" />
+                </td>
+            </tr>
+            <tr>
+                <td >Mật khẩu</td>
+                <td >
+                    <input class="form-control" type="password" name="password" />
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center" colspan="2">
+                    <input class="btn btn-primary" type="submit" Value="Đăng nhập" />
+                </td>
+            </tr>
+            @if (Model != null)
+            { 
+                <tr>
+                    <td colspan="2">@Model</td>
+                </tr>
+            }
+        </table>
+    </form>
+</div>
+

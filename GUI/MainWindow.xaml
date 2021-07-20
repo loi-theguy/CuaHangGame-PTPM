@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Cua Hang Game" Height="650" Width="1300"
+        Title="Cua Hang Game" Height="600" Width="1300"
         ResizeMode="NoResize">
 
-    <Grid Background="#493975">
+    <Grid Background="#0A0951">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition/>
@@ -34,16 +34,15 @@
             Background="White"/>
         <TextBlock Text="Cửa Hàng Game" 
                    FontSize="20"
-                   HorizontalAlignment="Stretch"
-                   Background="Black"
+                   HorizontalAlignment="Center"
                    Padding="20,10,0,0"
                    Foreground="White"
-                   VerticalAlignment="Stretch"/>
+                   VerticalAlignment="Center"/>
         <TextBlock Text="Xin chào" 
                    Name="txtGreeting"
                    FontSize="15"
                    Grid.Column="1"
-                   Background="#0a007d"
+                   Background="#3C377D"
                    Foreground="White"
                    VerticalAlignment="Stretch"
                    TextAlignment="Center"

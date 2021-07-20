@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLDAL
 {
-    public class BLDAL_Game:DataHelper<Game>
+    public class BLDAL_Game : DataHelper<Game>
     {
         public override List<Game> GetData()
         {
@@ -15,7 +15,7 @@ namespace BLDAL
 
         public override string GenerateID()
         {
-            string type= "GA";
+            string type = "GA";
             int max = -1;
             foreach (Game game in context.Games.Select(g => g))
             {
@@ -29,14 +29,14 @@ namespace BLDAL
             {
                 id = "0" + id;
             }
-            return type+id;
+            return type + id;
         }
 
         public override bool Insert(Game pGame)
         {
             try
             {
-                if(string.IsNullOrEmpty(pGame.MaGame)) pGame.MaGame = GenerateID();
+                if (string.IsNullOrEmpty(pGame.MaGame)) pGame.MaGame = GenerateID();
                 context.Games.InsertOnSubmit(pGame);
                 context.SubmitChanges();
             }
@@ -55,7 +55,7 @@ namespace BLDAL
                 foreach (Game_TheLoai gtl in gtls)
                 {
                     DeleteGameTheLoai(gtl.MaGame, gtl.MaTL);
-                }    
+                }
                 Game game = context.Games.FirstOrDefault(g => g.MaGame == pMaGame);
                 if (game == null) return NONEXISTENT;
                 context.Games.DeleteOnSubmit(game);
@@ -127,13 +127,13 @@ namespace BLDAL
             List<Game> games = new List<Game>();
             foreach (HoaDon hd in hoaDons)
             {
-                List<CTHoaDon> chiTiets=hdHelper.GetDataCTHoaDon(hd.MaHD);
+                List<CTHoaDon> chiTiets = hdHelper.GetDataCTHoaDon(hd.MaHD);
                 foreach (CTHoaDon ct in chiTiets)
                 {
                     games.Add(GetGame(ct.MaGame));
                 }
             }
-            return games; 
+            return games;
         }
         public List<Game> Search(string pKeyWord)
         {
@@ -170,8 +170,45 @@ namespace BLDAL
             List<TheLoai> list = GetTheLoais(pMaGame);
             List<TheLoai> result = new List<TheLoai>();
             foreach (TheLoai tl in context.TheLoais.ToList())
-                if (!IsContained(tl,list)) result.Add(tl);
+                if (!IsContained(tl, list)) result.Add(tl);
             return result;
         }
+
+        public GameReportResult GetReportOfAGame(string pMaGame, DateTime start, DateTime end)
+        {
+            GameReportResult data = new GameReportResult();
+            List<CTHoaDon> cts = context.CTHoaDons.Where(ct => ct.MaGame == pMaGame).ToList();
+            Game game = GetGame(pMaGame);
+            Dictionary<string, HoaDon> hds = new Dictionary<string, HoaDon>();
+            //get distince hoa don list
+            foreach (CTHoaDon ct in cts)
+            {
+                try
+                {
+                    hds.Add(ct.MaHD, ct.HoaDon);
+                }
+                catch { continue; }
+            }
+            int count = 0;
+            foreach (string key in hds.Keys)
+                if (DateTime.Compare((DateTime)hds[key].NgayLap, start) >= 0 && DateTime.Compare((DateTime)hds[key].NgayLap, end) <= 0)
+                    count++;
+            data.SoLuong=count.ToString();
+            data.ThanhTien = (count * (double)game.DonGia).ToString();
+            data.MaGame = game.MaGame;
+            data.TenGame = game.TenGame;
+            data.DonGia = game.DonGia.ToString();
+            return data;
+        }
+
+        public List<GameReportResult> GetGameReportResults(DateTime start, DateTime end)
+        {
+            List<Game> games = GetData();
+            List<GameReportResult> results = new List<GameReportResult>();
+            foreach (Game game in games)
+                results.Add(GetReportOfAGame(game.MaGame, start, end));
+            return results;
+        }
+
     }
 }

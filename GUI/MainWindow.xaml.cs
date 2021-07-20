@@ -36,6 +36,7 @@ namespace GUI
         private ControlQuanLyHD controlQuanLyHD = null;
         private ControlQuanLyTL controlQuanLyTL = null;
         private ControlQuanLyGame controlQuanLyGame = null;
+        private ControlThongKeReport controlThongKeReport = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -57,22 +58,6 @@ namespace GUI
 
         private void InitSideMenuItems()
         {
-            //menuItemsTitle.Add("QU00000001", "Quản lý nhân viên");
-            //menuItemsTitle.Add("QU00000002", "Quản lý game");
-            //menuItemsTitle.Add("QU00000003", "Quản lý nhà sản xuất");
-            //menuItemsTitle.Add("QU00000004", "Quản lý khách hàng");
-            //menuItemsTitle.Add("QU00000005", "Quản lý hóa đơn");
-            //menuItemsTitle.Add("QU00000006", "Thống kê - Report");
-            //menuItemsTitle.Add("QU00000007", "Trang chủ");
-            //menuItemsTitle.Add("QU00000009", "Quản lý giỏ hàng");
-            //menuItemsTitle.Add("QU00000010", "Tìm kiếm");
-            //foreach (KeyValuePair<string, string> pair in menuItemsTitle)
-            //{
-            //    menuItems.Add(pair.Key, new RadioButton());
-            //    menuItems[pair.Key].Content = pair.Value;
-            //    Style style = FindResource("MenuButtonTheme") as Style;
-            //    menuItems[pair.Key].Style = style;
-            //}
             List<Quyen> quyens = quyenHelper.GetData();
             foreach (Quyen quyen in quyens)
             {
@@ -143,7 +128,10 @@ namespace GUI
 
         private void BtnThongKeReport_Checked(object sender, RoutedEventArgs e)
         {
-            
+            TaiKhoan currentUser = User;
+            if (controlThongKeReport == null) controlThongKeReport = new ControlThongKeReport() { User=currentUser };
+            svMainContent.Content = controlThongKeReport;
+            svMainContent.UpdateLayout();
         }
 
         private void BtnQuanLyHD_Checked(object sender, RoutedEventArgs e)

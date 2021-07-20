@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/_LayoutKhachHang.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <h1>Đăng ký</h1>
+    </div>
+    <div class="row">
+        <form action="/Home/DangKy" method="post">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Họ tên</td>
+                        <td><input class="form-control" type="text" name="hoTen" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ngày sinh</td>
+                        <td><input class="form-control" type="date" name="ngaySinh" /></td>
+                    </tr>
+                    <tr>
+                        <td>Số điện thoại</td>
+                        <td><input class="form-control" type="text" name="soDienThoai" /></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input class="form-control" type="text" name="email" /></td>
+                    </tr>
+                    <tr>
+                        <td>Tên tài khoản</td>
+                        <td><input class="form-control" type="text" name="username" /></td>
+                    </tr>
+                    <tr>
+                        <td>Mật khẩu</td>
+                        <td><input class="form-control" type="password" name="password" /></td>
+                    </tr>
+                    <tr>
+                        <td>Xác nhận mật khẩu</td>
+                        <td><input class="form-control" type="password" name="re-password" /></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" colspan="2"><input type="submit" class="btn btn-primary" value="Xác nhận" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+

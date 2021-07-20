@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="GUI.ControlThongKeReport"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Dự đoán doanh thu">
+            <StackPanel>
+                <DataGrid Name="dgTrainData"
+                  Margin="10"
+                  Height="200"
+                  VerticalScrollBarVisibility="Auto"
+                  SelectionUnit="FullRow"
+                  ColumnWidth="*"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Dữ liệu ngày"
+                                    Binding="{Binding Date}"/>
+                        <DataGridTextColumn Header="Doanh thu"
+                                    Binding="{Binding Revenue}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Ngày bắt đầu để train"
+                           Margin="10"/>
+                    <DatePicker Margin="0,10,10,10" 
+                            SelectedDateChanged="txtNgayBDTrain_SelectedDateChanged"
+                    Name="txtNgayBDTrain"/>
+                </StackPanel>
+                <TextBlock Text="Doanh thu dự đoán:"
+                           Margin="10,0,0,0"/>
+                <TextBlock x:Name="txtDoanhThu"
+                       Margin="10,5,0,0"
+                       Foreground="Green"
+                       FontSize="20"
+                       Text="0"/>
+
+            </StackPanel>
+        </GroupBox>
+        
+        
+        <StackPanel Grid.Row="1">
+            <GroupBox Header="Khen Thưởng"
+                      Margin="10">
+                <StackPanel>
+                    <TextBlock Margin="10" Text="Nhân viên"/>
+                    <ComboBox Name="cbNhanVien"
+                              DisplayMemberPath="HoTen"/>
+                    <TextBlock Margin="10" Text="Lý do khen thưởng"/>
+                    <TextBox Name="txtLyDo"/>
+                    <TextBlock Margin="10"
+                        Text="Số tiền"/>
+                    <TextBox Name="txtSoTien"/>
+                    <Button Margin="10"
+                            HorizontalAlignment="Center"
+                            Name="btnKhenThuong" 
+                        Content="Khen thưởng nhân viên" Click="btnKhenThuong_Click"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Thống kê"
+                      Margin="10">
+                <StackPanel>
+                    <TextBlock Text="Chọn ngày bắt đầu thống kê"/>
+                    <DatePicker Name="txtNgayBatDau"/>
+                    <TextBlock Text="Chọn ngày kết thúc thống kê"/>
+                    <DatePicker Name="txtNgayKetThuc"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Thống kê game"
+                            Name="btnThongKeGame"
+                            Margin="10" Click="btnThongKeGame_Click"/>
+                        <Button Name="btnThongKeNhanVien"
+                                Margin="10"
+                                Content="Thống kê nhân viên tháng này" Click="btnThongKeNhanVien_Click"/>
+                    </StackPanel>
+                </StackPanel>
+                
+            </GroupBox>
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

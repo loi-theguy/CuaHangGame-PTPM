@@ -1,0 +1,54 @@
+﻿@using BLDAL
+@{
+    ViewBag.Title = "ChiTiet";
+    Layout = "~/Views/Shared/_LayoutKhachHang.cshtml";
+
+
+}
+@model Game 
+
+<div class="container">
+    <div class="row">
+        <h1>Chi tiết sản phẩm</h1>
+    </div>
+    <div class="row">
+        @if (Model != null)
+        {
+            <div class="col-6">
+                <img src="~/Content/Images/@Model.HinhDaiDien" />
+            </div>
+            <div class="col-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td><b>Tên game</b></td>
+                            <td>@Model.TenGame</td>
+                        </tr>
+                        <tr>
+                            <td><b>Nhà sản xuất</b></td>
+                            <td>@Model.NhaSanXuat.TenNSX</td>
+                        </tr>
+                        <tr>
+                            <td><b>Mô tả</b></td>
+                            <td>@Model.MoTa</td>
+                        </tr>
+                        <tr>
+                            <td><b>Giá</b></td>
+                            <td>@Model.DonGia</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" colspan="2"><a href="/Cart/AddItem/@Model.MaGame" class="btn btn-primary">Thêm vào giỏ hàng</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <h3>Vui lòng chọn game</h3>
+        }
+    </div>
+
+</div>
+
+
